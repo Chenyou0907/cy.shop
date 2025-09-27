@@ -31,7 +31,23 @@ class AdminAPI {
     }
     
     initializeLocalData() {
+        // 檢查並修復可能的數據問題
+        try {
+            const existingProducts = localStorage.getItem('adminProducts');
+            if (existingProducts) {
+                const parsed = JSON.parse(existingProducts);
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                    console.log(`📦 發現現有商品數據: ${parsed.length} 個商品`);
+                    return; // 數據正常，無需重新初始化
+                }
+            }
+        } catch (e) {
+            console.warn('⚠️ 檢測到損壞的商品數據，將重新初始化:', e);
+            localStorage.removeItem('adminProducts');
+        }
+        
         // 初始化產品數據
+        console.log('🔄 初始化預設商品數據...');
         if (!localStorage.getItem('adminProducts')) {
             const defaultProducts = [
                 {
@@ -75,6 +91,7 @@ class AdminAPI {
                 }
             ];
             localStorage.setItem('adminProducts', JSON.stringify(defaultProducts));
+            console.log(`✅ 已初始化 ${defaultProducts.length} 個預設商品`);
         }
     }
     
@@ -139,6 +156,24 @@ class AdminAPI {
             localStorage.removeItem('adminToken');
             localStorage.removeItem('adminUser');
             location.reload();
+        }
+    }
+
+    resetLocalData() {
+        if (confirm('確定要重置所有本地數據嗎？這將清除所有商品數據並恢復預設值。')) {
+            console.log('🔄 重置本地數據...');
+            localStorage.removeItem('adminProducts');
+            this.initializeLocalData();
+            this.showNotification('本地數據已重置，正在重新載入...', 'success');
+            
+            // 重新載入當前頁面內容
+            setTimeout(() => {
+                if (this.currentSection === 'products') {
+                    this.loadProducts();
+                } else {
+                    this.loadDashboard();
+                }
+            }, 1000);
         }
     }
 
@@ -645,6 +680,10 @@ class AdminPanel {
             loginModal.classList.add('hidden');
             adminContent.style.display = 'block';
             this.updateAdminUser();
+            
+            // 確保模擬數據已初始化
+            this.api.initializeLocalData();
+            console.log('✅ 管理員登入成功，數據已初始化');
         }
     }
 
@@ -973,19 +1012,53 @@ class AdminPanel {
         `).join('');
     }
 
-    async loadProducts() {
+    async loadProducts(filters = {}) {
         try {
-            const response = await this.api.getProducts();
-            if (response.success) {
-                this.renderProductsTable(response.data);
+            console.log('🔄 開始載入商品數據...');
+            const response = await this.api.getProducts(1, 50, filters);
+            console.log('📦 商品數據回應:', response);
+            
+            if (response && response.success) {
+                console.log(`✅ 成功載入 ${response.data?.length || 0} 個商品`);
+                this.renderProductsTable(response.data || []);
+            } else {
+                console.warn('⚠️ 商品數據載入回應格式異常:', response);
+                // 嘗試直接使用回應數據（如果回應本身就是數據陣列）
+                if (Array.isArray(response)) {
+                    console.log('📋 使用陣列格式回應');
+                    this.renderProductsTable(response);
+                } else {
+                    this.showNotification('商品數據格式異常', 'warning');
+                    this.renderProductsTable([]);
+                }
             }
         } catch (error) {
-            this.showNotification('載入商品數據失敗', 'error');
+            console.error('❌ 載入商品數據錯誤:', error);
+            this.showNotification(`載入商品數據失敗: ${error.message}`, 'error');
+            // 顯示空的產品表格
+            this.renderProductsTable([]);
         }
     }
 
     renderProductsTable(products) {
         const tbody = document.getElementById('products-tbody');
+        
+        if (!products || products.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7" style="text-align: center; padding: 2rem; color: #6b7280;">
+                        <i class="fas fa-box-open" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+                        暫無商品數據
+                        <br>
+                        <button class="btn-primary" onclick="adminPanel.openAddProductModal()" style="margin-top: 1rem;">
+                            <i class="fas fa-plus"></i> 新增第一個商品
+                        </button>
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+        
         tbody.innerHTML = products.map(product => `
             <tr>
                 <td>${product.id || '---'}</td>
