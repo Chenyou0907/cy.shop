@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用條款 - CY.SHOP 數位帳號交易平台</title>
+    <meta name="description" content="CY.SHOP使用條款，規範平台使用規則，保障用戶權益與平台安全。">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="contact-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .terms-section {
+            background: var(--white);
+            padding: var(--spacing-xxl) 0;
+            min-height: 80vh;
+        }
+        
+        .terms-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xxl);
+        }
+        
+        .terms-header h1 {
+            color: var(--primary-blue);
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .terms-header .update-date {
+            color: var(--neutral-dark-gray);
+            font-size: 1rem;
+            background: var(--neutral-bg);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            display: inline-block;
+        }
+        
+        .terms-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .terms-nav {
+            background: var(--neutral-bg);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .terms-nav h3 {
+            color: var(--primary-blue);
+            margin-bottom: var(--spacing-md);
+            font-size: 1.125rem;
+        }
+        
+        .terms-nav ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-sm);
+        }
+        
+        .terms-nav li {
+            margin: 0;
+        }
+        
+        .terms-nav a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            transition: all var(--transition-fast);
+            display: block;
+        }
+        
+        .terms-nav a:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        .terms-content {
+            background: var(--white);
+            padding: var(--spacing-xxl);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            line-height: 1.8;
+        }
+        
+        .terms-content h2 {
+            color: var(--primary-blue);
+            font-size: 1.75rem;
+            margin-top: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--primary-blue);
+            scroll-margin-top: 100px;
+        }
+        
+        .terms-content h3 {
+            color: var(--primary-dark-blue);
+            font-size: 1.25rem;
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .terms-content p {
+            color: var(--neutral-text);
+            margin-bottom: var(--spacing-md);
+            text-align: justify;
+        }
+        
+        .terms-content ul, .terms-content ol {
+            margin-bottom: var(--spacing-md);
+            padding-left: var(--spacing-xl);
+        }
+        
+        .terms-content li {
+            color: var(--neutral-text);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .important-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-left: 4px solid #fdcb6e;
+            padding: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+            border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+        }
+        
+        .important-notice h4 {
+            color: #856404;
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.125rem;
+        }
+        
+        .legal-notice {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-left: 4px solid #dc3545;
+            padding: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+            border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+        }
+        
+        .legal-notice h4 {
+            color: #721c24;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .info-box {
+            background: var(--primary-light-blue);
+            border-left: 4px solid var(--primary-blue);
+            padding: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+            border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+        }
+        
+        .info-box h4 {
+            color: var(--primary-blue);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .definition-box {
+            background: #e2e3e5;
+            border: 1px solid #d6d8db;
+            padding: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+            border-radius: var(--border-radius-md);
+            font-style: italic;
+        }
+        
+        .contact-section {
+            background: var(--primary-light-blue);
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            margin-top: var(--spacing-xxl);
+        }
+        
+        @media (max-width: 768px) {
+            .terms-content {
+                padding: var(--spacing-lg);
+            }
+            
+            .terms-header h1 {
+                font-size: 2rem;
+            }
+            
+            .terms-nav ul {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <img src="logo.svg" alt="CY.SHOP" class="logo">
+                    <span class="brand-text">CY.SHOP</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">首頁</a></li>
+                <li class="dropdown">
+                    <a href="index.html#products">產品類別 <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="category.html?cat=gaming">遊戲帳號</a>
+                        <a href="category.html?cat=social">社交平台</a>
+                        <a href="category.html?cat=streaming">直播平台</a>
+                    </div>
+                </li>
+                <li><a href="contact.html">聯絡我們</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="search-box" style="margin-right: 15px;">
+                    <input type="text" id="search-input" placeholder="搜索產品..." style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: 200px;">
+                    <button id="search-btn" style="padding: 8px 12px; background: #007bff; color: white; border: none; border-radius: 4px; margin-left: 5px;">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <a href="#cart" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" style="display: none;">0</span>
+                </a>
+                <div class="user-section">
+                    <button class="login-btn">登入</button>
+                    <div class="user-menu" style="display: none;">
+                        <div class="user-avatar">
+                            <span class="avatar-text">U</span>
+                        </div>
+                        <div class="user-dropdown">
+                            <a href="#" class="dropdown-item" data-action="profile">
+                                <i class="fas fa-user"></i> 個人資料
+                            </a>
+                            <a href="#" class="dropdown-item" data-action="orders">
+                                <i class="fas fa-shopping-bag"></i> 我的訂單
+                            </a>
+                            <a href="#" class="dropdown-item" data-action="favorites">
+                                <i class="fas fa-heart"></i> 我的收藏
+                            </a>
+                            <a href="#" class="dropdown-item" data-action="settings">
+                                <i class="fas fa-cog"></i> 設定
+                            </a>
+                            <hr>
+                            <a href="#" class="dropdown-item" data-action="logout">
+                                <i class="fas fa-sign-out-alt"></i> 登出
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Terms Section -->
+    <section class="terms-section">
+        <div class="container">
+            <div class="terms-header">
+                <h1><i class="fas fa-file-contract"></i> 使用條款</h1>
+                <div class="update-date">
+                    <i class="fas fa-calendar-alt"></i> 最後更新：2025年9月25日
+                </div>
+            </div>
+
+            <div class="terms-container">
+                <!-- 快速導航 -->
+                <div class="terms-nav">
+                    <h3><i class="fas fa-list"></i> 快速導航</h3>
+                    <ul>
+                        <li><a href="#section1">1. 接受條款</a></li>
+                        <li><a href="#section2">2. 服務描述</a></li>
+                        <li><a href="#section3">3. 用戶資格</a></li>
+                        <li><a href="#section4">4. 帳戶註冊</a></li>
+                        <li><a href="#section5">5. 使用規範</a></li>
+                        <li><a href="#section6">6. 交易規則</a></li>
+                        <li><a href="#section7">7. 禁止行為</a></li>
+                        <li><a href="#section8">8. 知識產權</a></li>
+                        <li><a href="#section9">9. 隱私保護</a></li>
+                        <li><a href="#section10">10. 免責聲明</a></li>
+                        <li><a href="#section11">11. 服務變更</a></li>
+                        <li><a href="#section12">12. 爭議解決</a></li>
+                    </ul>
+                </div>
+
+                <div class="terms-content">
+                    <div class="important-notice">
+                        <h4><i class="fas fa-exclamation-triangle"></i> 重要提醒</h4>
+                        <p>請仔細閱讀本使用條款。使用CY.SHOP服務即表示您同意遵守本條款的所有規定。如您不同意任何條款內容，請勿使用本平台服務。</p>
+                    </div>
+
+                    <h2 id="section1">1. 接受條款</h2>
+                    <p>歡迎使用CY.SHOP數位帳號交易平台（以下簡稱"本平台"、"我們"）。本使用條款（以下簡稱"條款"）構成您與CY.SHOP之間的法律協議，規範您對本平台服務的使用。</p>
+                    
+                    <div class="definition-box">
+                        <strong>定義說明：</strong>在本條款中，"用戶"、"您"指使用本平台服務的個人或組織；"服務"指本平台提供的所有功能和服務；"內容"指平台上的所有文字、圖像、視頻等資料。
+                    </div>
+
+                    <p>透過以下任一方式，您即表示同意本條款：</p>
+                    <ul>
+                        <li>點擊"我同意"或類似按鈕</li>
+                        <li>註冊帳戶或使用服務</li>
+                        <li>瀏覽或訪問本平台</li>
+                        <li>進行任何形式的交易</li>
+                    </ul>
+
+                    <h2 id="section2">2. 服務描述</h2>
+                    <p>CY.SHOP是一個專業的數位帳號交易平台，為用戶提供以下服務：</p>
+                    
+                    <h3>2.1 主要服務</h3>
+                    <ul>
+                        <li><strong>帳號交易：</strong>提供遊戲帳號、社交媒體帳號、串流平台帳號等數位資產的買賣服務</li>
+                        <li><strong>安全保障：</strong>提供資金託管、身份驗證、交易保障等安全機制</li>
+                        <li><strong>客戶服務：</strong>提供24/7客服支援、爭議調解等服務</li>
+                        <li><strong>資訊服務：</strong>提供市場資訊、價格趨勢、安全指南等相關資訊</li>
+                    </ul>
+
+                    <h3>2.2 服務特色</h3>
+                    <ul>
+                        <li>實名認證系統確保交易安全</li>
+                        <li>資金託管機制保障買賣雙方權益</li>
+                        <li>專業客服團隊提供即時支援</li>
+                        <li>透明的評價系統建立信任機制</li>
+                    </ul>
+
+                    <h2 id="section3">3. 用戶資格</h2>
+                    <h3>3.1 基本要求</h3>
+                    <p>使用本平台服務，您必須符合以下條件：</p>
+                    <ul>
+                        <li>年滿18歲或在您所在司法管轄區內達到法定成年年齡</li>
+                        <li>具有完全民事行為能力</li>
+                        <li>未被本平台列入黑名單或禁止使用名單</li>
+                        <li>同意並遵守本條款及相關政策</li>
+                    </ul>
+
+                    <h3>3.2 未成年人使用</h3>
+                    <div class="legal-notice">
+                        <h4><i class="fas fa-gavel"></i> 法律限制</h4>
+                        <p>未滿18歲的用戶需在法定監護人同意並監督下使用本服務。監護人應對未成年人的所有行為承擔完全責任。</p>
+                    </div>
+
+                    <h2 id="section4">4. 帳戶註冊</h2>
+                    <h3>4.1 註冊要求</h3>
+                    <p>註冊帳戶時，您需要：</p>
+                    <ul>
+                        <li>提供真實、準確、完整的個人資訊</li>
+                        <li>選擇安全的密碼並妥善保管</li>
+                        <li>完成電子郵件或手機號碼驗證</li>
+                        <li>同意接受本平台的服務條款</li>
+                    </ul>
+
+                    <h3>4.2 實名認證</h3>
+                    <p>為確保交易安全，進行高價值交易前需完成實名認證：</p>
+                    <ul>
+                        <li>上傳政府核發的身份證明文件</li>
+                        <li>提供銀行帳戶或信用卡資訊</li>
+                        <li>通過視頻驗證或其他身份確認程序</li>
+                    </ul>
+
+                    <h3>4.3 帳戶安全</h3>
+                    <div class="info-box">
+                        <h4><i class="fas fa-shield-alt"></i> 安全提醒</h4>
+                        <p>您有責任保護帳戶安全，包括：定期更換密碼、啟用雙重驗證、不與他人分享登入資訊、及時報告可疑活動。</p>
+                    </div>
+
+                    <h2 id="section5">5. 使用規範</h2>
+                    <h3>5.1 合法使用</h3>
+                    <p>您承諾僅將本平台用於合法目的，包括：</p>
+                    <ul>
+                        <li>進行真實的帳號買賣交易</li>
+                        <li>提供準確的商品描述和資訊</li>
+                        <li>遵守所有適用的法律法規</li>
+                        <li>尊重其他用戶的權利和利益</li>
+                    </ul>
+
+                    <h3>5.2 內容標準</h3>
+                    <p>您在平台上發布的所有內容必須：</p>
+                    <ul>
+                        <li>真實、準確、不具誤導性</li>
+                        <li>不包含非法、有害或不當內容</li>
+                        <li>不侵犯他人的知識產權</li>
+                        <li>符合社會道德和公序良俗</li>
+                    </ul>
+
+                    <h2 id="section6">6. 交易規則</h2>
+                    <h3>6.1 交易流程</h3>
+                    <p>標準交易流程如下：</p>
+                    <ol>
+                        <li><strong>商品瀏覽：</strong>買方瀏覽並選擇心儀的帳號</li>
+                        <li><strong>下單付款：</strong>買方下單並完成付款，資金進入託管</li>
+                        <li><strong>賣方交付：</strong>賣方提供帳號資訊給買方</li>
+                        <li><strong>買方確認：</strong>買方檢查帳號並確認收貨</li>
+                        <li><strong>資金釋放：</strong>確認無誤後，資金轉給賣方</li>
+                    </ol>
+
+                    <h3>6.2 定價機制</h3>
+                    <ul>
+                        <li>賣方可自由設定商品價格</li>
+                        <li>平台收取適當的交易手續費</li>
+                        <li>價格應反映帳號的真實價值</li>
+                        <li>禁止惡意操縱價格的行為</li>
+                    </ul>
+
+                    <h3>6.3 交易保障</h3>
+                    <div class="info-box">
+                        <h4><i class="fas fa-handshake"></i> 交易承諾</h4>
+                        <p>我們提供全面的交易保障：資金託管服務、7天退款保證、爭議調解機制、24/7客服支援。</p>
+                    </div>
+
+                    <h2 id="section7">7. 禁止行為</h2>
+                    <p>以下行為嚴格禁止，違反者將面臨帳戶限制或永久封禁：</p>
+
+                    <h3>7.1 欺詐行為</h3>
+                    <ul>
+                        <li>提供虛假的帳號資訊或商品描述</li>
+                        <li>使用他人身份進行註冊或交易</li>
+                        <li>惡意申請退款或爭議</li>
+                        <li>操縱評價系統或刷單行為</li>
+                    </ul>
+
+                    <h3>7.2 技術濫用</h3>
+                    <ul>
+                        <li>使用自動化工具或機器人程序</li>
+                        <li>嘗試破解或攻擊平台系統</li>
+                        <li>散布病毒、惡意軟體或有害程式碼</li>
+                        <li>過度佔用系統資源影響服務穩定性</li>
+                    </ul>
+
+                    <h3>7.3 違法活動</h3>
+                    <div class="legal-notice">
+                        <h4><i class="fas fa-ban"></i> 嚴重禁止</h4>
+                        <p>絕對禁止任何形式的洗錢、詐騙、盜用他人帳號、銷售非法獲得的數位資產等違法行為。我們會配合執法部門調查此類案件。</p>
+                    </div>
+
+                    <h2 id="section8">8. 知識產權</h2>
+                    <h3>8.1 平台知識產權</h3>
+                    <p>本平台的所有內容，包括但不限於：</p>
+                    <ul>
+                        <li>網站設計、界面、程式碼</li>
+                        <li>商標、標誌、品牌名稱</li>
+                        <li>文字、圖像、音頻、視頻內容</li>
+                        <li>軟體、算法、數據結構</li>
+                    </ul>
+                    <p>均受知識產權法保護，未經授權不得使用。</p>
+
+                    <h3>8.2 用戶內容權利</h3>
+                    <p>您對自己發布的內容享有知識產權，但授予我們以下權利：</p>
+                    <ul>
+                        <li>在平台上展示、傳播您的內容</li>
+                        <li>為改善服務質量而使用您的內容</li>
+                        <li>為遵守法律要求而保存、處理內容</li>
+                    </ul>
+
+                    <h2 id="section9">9. 隱私保護</h2>
+                    <p>我們高度重視用戶隱私，承諾：</p>
+                    <ul>
+                        <li>僅收集必要的個人資訊</li>
+                        <li>採用先進技術保護數據安全</li>
+                        <li>不會向第三方洩露您的個人資訊</li>
+                        <li>遵守相關隱私保護法規</li>
+                    </ul>
+                    <p>詳細的隱私政策請參閱我們的<a href="privacy-policy.html">隱私政策頁面</a>。</p>
+
+                    <h2 id="section10">10. 免責聲明</h2>
+                    <h3>10.1 服務免責</h3>
+                    <div class="legal-notice">
+                        <h4><i class="fas fa-info-circle"></i> 重要聲明</h4>
+                        <p>本平台僅提供交易撮合服務，不對以下情況承擔責任：</p>
+                        <ul>
+                            <li>第三方平台對帳號的政策變更或封禁</li>
+                            <li>用戶之間的交易糾紛（超出調解範圍的）</li>
+                            <li>不可抗力因素導致的服務中斷</li>
+                            <li>用戶自身過失造成的損失</li>
+                        </ul>
+                    </div>
+
+                    <h3>10.2 責任限制</h3>
+                    <p>在法律允許的最大範圍內，我們的責任限於：</p>
+                    <ul>
+                        <li>退還相關交易費用</li>
+                        <li>提供替代解決方案</li>
+                        <li>協助用戶解決技術問題</li>
+                    </ul>
+
+                    <h2 id="section11">11. 服務變更</h2>
+                    <h3>11.1 功能更新</h3>
+                    <p>我們保留隨時修改、更新或終止服務功能的權利，包括：</p>
+                    <ul>
+                        <li>新增或移除特定功能</li>
+                        <li>調整服務費用結構</li>
+                        <li>更新用戶界面和體驗</li>
+                        <li>修改交易流程或規則</li>
+                    </ul>
+
+                    <h3>11.2 條款修訂</h3>
+                    <p>本條款可能因應法規變更或業務需要進行修訂。重大變更將提前30天通知用戶，繼續使用服務即表示同意修訂後的條款。</p>
+
+                    <h2 id="section12">12. 爭議解決</h2>
+                    <h3>12.1 協商解決</h3>
+                    <p>如發生爭議，我們鼓勵通過以下方式解決：</p>
+                    <ul>
+                        <li>直接與對方用戶協商</li>
+                        <li>尋求平台客服協助調解</li>
+                        <li>參考平台規則和先例</li>
+                    </ul>
+
+                    <h3>12.2 法律管轄</h3>
+                    <p>本條款受中華民國法律管轄。如協商無法解決爭議，應向台北地方法院提起訴訟。</p>
+
+                    <div class="important-notice">
+                        <h4><i class="fas fa-balance-scale"></i> 法律效力</h4>
+                        <p>本條款構成您與CY.SHOP之間的完整協議。如條款中任何部分被認定無效，其餘部分仍具完整效力。</p>
+                    </div>
+
+                    <h2>13. 聯絡資訊</h2>
+                    <p>如對本條款有任何疑問，請聯絡我們：</p>
+                    <ul>
+                        <li><strong>電子郵件：</strong>zhengyou507@gmail.com</li>
+                        <li><strong>客服專線：</strong>+886-903-361-787</li>
+                        <li><strong>服務時間：</strong>週一至週日 09:00-21:00</li>
+                    </ul>
+
+                    <p style="margin-top: 2rem; font-style: italic; color: var(--neutral-dark-gray);">
+                        感謝您選擇CY.SHOP，我們致力於為您提供安全、便捷的數位帳號交易服務。
+                    </p>
+                </div>
+
+                <div class="contact-section">
+                    <h3><i class="fas fa-question-circle"></i> 需要法律協助？</h3>
+                    <p>如對使用條款有任何疑問，我們的法務團隊隨時為您提供專業解答</p>
+                    <a href="contact.html" class="btn btn-primary">
+                        <i class="fas fa-gavel"></i> 法律諮詢
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <span class="logo-text">CY</span>
+                        <span class="logo-dot">.</span>
+                        <span class="logo-shop">SHOP</span>
+                    </div>
+                    <p>專業可靠的數位帳號交易平台，提供安全、快速的交易體驗。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        
+                        <a href="https://www.instagram.com/chenyou.shop?igsh=MThkd29jbXc3bDg2OQ%3D%3D&utm_source=qr" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                        <a href="https://discord.gg/SZkyeKJ4wp" target="_blank" rel="noopener"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>產品類別</h4>
+                    <ul>
+                        <li><a href="category.html?cat=gaming">遊戲帳號</a></li>
+                        <li><a href="category.html?cat=social">社交平台</a></li>
+                        <li><a href="category.html?cat=streaming">直播平台</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>客戶服務</h4>
+                    <ul>
+                        <li><a href="faq.html">常見問題</a></li>
+                        <li><a href="contact.html">聯絡我們</a></li>
+                        <li><a href="refund-policy.html">退款政策</a></li>
+                        <li><a href="terms.html">使用條款</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>聯絡資訊</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> zhengyou507@gmail.com</p>
+                        <p><i class="fas fa-phone"></i> +886-903-361-787</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CY.SHOP. 版權所有.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 平滑滾動到錨點
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.terms-nav a[href^="#"]');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

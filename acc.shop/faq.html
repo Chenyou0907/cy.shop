@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常見問題 - CY.SHOP 數位帳號交易平台</title>
+    <meta name="description" content="CY.SHOP常見問題解答，包含帳號交易、安全保障、退款政策等相關問題。">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="contact-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .faq-section {
+            background: var(--white);
+            padding: var(--spacing-xxl) 0;
+            min-height: 80vh;
+        }
+        
+        .faq-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xxl);
+        }
+        
+        .faq-header h1 {
+            color: var(--primary-blue);
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .faq-header p {
+            color: var(--neutral-dark-gray);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-category {
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .category-title {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .faq-item {
+            background: var(--white);
+            border: 1px solid var(--neutral-light-gray);
+            border-radius: var(--border-radius-md);
+            margin-bottom: var(--spacing-md);
+            overflow: hidden;
+            transition: all var(--transition-fast);
+        }
+        
+        .faq-item:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-blue);
+        }
+        
+        .faq-question {
+            background: var(--neutral-bg);
+            padding: var(--spacing-lg);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: var(--font-weight-semibold);
+            color: var(--neutral-text);
+            transition: all var(--transition-fast);
+        }
+        
+        .faq-question:hover {
+            background: var(--primary-light-blue);
+            color: var(--primary-blue);
+        }
+        
+        .faq-question.active {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        .faq-icon {
+            font-size: 1.25rem;
+            transition: transform var(--transition-fast);
+        }
+        
+        .faq-question.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            padding: 0 var(--spacing-lg);
+            max-height: 0;
+            overflow: hidden;
+            transition: all var(--transition-smooth);
+            background: var(--white);
+        }
+        
+        .faq-answer.active {
+            padding: var(--spacing-lg);
+            max-height: 500px;
+        }
+        
+        .faq-answer p {
+            color: var(--neutral-dark-gray);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .faq-answer ul {
+            margin-left: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .faq-answer li {
+            color: var(--neutral-dark-gray);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .highlight {
+            background: var(--accent-yellow);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .contact-cta {
+            background: var(--primary-light-blue);
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            margin-top: var(--spacing-xxl);
+        }
+        
+        .contact-cta h3 {
+            color: var(--primary-blue);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .contact-cta p {
+            color: var(--neutral-dark-gray);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        @media (max-width: 768px) {
+            .faq-header h1 {
+                font-size: 2rem;
+            }
+            
+            .faq-container {
+                padding: 0 var(--spacing-md);
+            }
+            
+            .faq-question {
+                padding: var(--spacing-md);
+            }
+            
+            .faq-answer.active {
+                padding: var(--spacing-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <img src="logo.svg" alt="CY.SHOP" class="logo">
+                    <span class="brand-text">CY.SHOP</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">首頁</a></li>
+                <li class="dropdown">
+                    <a href="index.html#products">產品類別 <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="category.html?cat=gaming">遊戲帳號</a>
+                        <a href="category.html?cat=social">社交平台</a>
+                        <a href="category.html?cat=streaming">直播平台</a>
+                    </div>
+                </li>
+                <li><a href="contact.html">聯絡我們</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="search-box" style="margin-right: 15px;">
+                    <input type="text" id="search-input" placeholder="搜索產品..." style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: 200px;">
+                    <button id="search-btn" style="padding: 8px 12px; background: #007bff; color: white; border: none; border-radius: 4px; margin-left: 5px;">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <a href="#cart" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" style="display: none;">0</span>
+                </a>
+                <div class="user-section">
+                    <button class="login-btn">登入</button>
+                    <div class="user-menu" style="display: none;">
+                        <div class="user-avatar">
+                            <span class="avatar-text">U</span>
+                        </div>
+                        <div class="user-dropdown">
+                            <a href="#" class="dropdown-item" data-action="profile">
+                                <i class="fas fa-user"></i> 個人資料
+                            </a>
+                            <a href="#" class="dropdown-item" data-action="orders">
+                                <i class="fas fa-shopping-bag"></i> 我的訂單
+                            </a>
+                            <a href="#" class="dropdown-item" data-action="favorites">
+                                <i class="fas fa-heart"></i> 我的收藏
+                            </a>
+                            <a href="#" class="dropdown-item" data-action="settings">
+                                <i class="fas fa-cog"></i> 設定
+                            </a>
+                            <hr>
+                            <a href="#" class="dropdown-item" data-action="logout">
+                                <i class="fas fa-sign-out-alt"></i> 登出
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-header">
+                <h1><i class="fas fa-question-circle"></i> 常見問題</h1>
+                <p>找到您需要的答案，如果仍有疑問，歡迎隨時聯絡我們的客服團隊</p>
+            </div>
+
+            <div class="faq-container">
+                <!-- 帳號交易相關 -->
+                <div class="faq-category">
+                    <h2 class="category-title">
+                        <i class="fas fa-exchange-alt"></i>
+                        帳號交易相關
+                    </h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>什麼是數位帳號交易？</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>數位帳號交易是指買賣各種網路平台的帳號，包括：</p>
+                            <ul>
+                                <li><strong>遊戲帳號：</strong>如Steam、Epic Games、PlayStation、Xbox等</li>
+                                <li><strong>社交平台：</strong>如Instagram、TikTok、YouTube等</li>
+                                <li><strong>直播平台：</strong>如Twitch、YouTube等</li>
+                                <li><strong>其他服務：</strong>Netflix、Spotify、Adobe等訂閱服務</li>
+                            </ul>
+                            <p>我們提供安全、可靠的交易環境，確保買賣雙方的權益。</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>如何確保交易安全？</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>我們採用多重安全措施保障交易：</p>
+                            <ul>
+                                <li><strong>實名認證：</strong>所有賣家都需通過身份驗證</li>
+                                <li><strong>資金託管：</strong>買方付款先由平台代管，確認收貨後再轉給賣方</li>
+                                <li><strong>7天保障：</strong>交易完成後7天內如有問題可申請退款</li>
+                                <li><strong>24/7客服：</strong>專業客服團隊隨時協助解決問題</li>
+                                <li><strong>評價系統：</strong>透明的買賣雙方評價機制</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>購買帳號後多久可以收到？</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>交付時間依帳號類型而定：</p>
+                            <ul>
+                                <li><strong>即時交付：</strong>大部分現成帳號在付款確認後<span class="highlight">5-15分鐘</span>內交付</li>
+                                <li><strong>客製化帳號：</strong>需要特殊設定的帳號可能需要<span class="highlight">1-24小時</span></li>
+                                <li><strong>稀有帳號：</strong>特殊或稀有帳號可能需要<span class="highlight">1-3個工作天</span></li>
+                            </ul>
+                            <p>所有預估時間都會在商品頁面明確標示。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 付款與退款 -->
+                <div class="faq-category">
+                    <h2 class="category-title">
+                        <i class="fas fa-credit-card"></i>
+                        付款與退款
+                    </h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>支援哪些付款方式？</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>我們支援多種便利的付款方式：</p>
+                            <ul>
+                                <li><strong>信用卡：</strong>Visa、Mastercard、JCB</li>
+                                <li><strong>電子支付：</strong>PayPal、Apple Pay、Google Pay</li>
+                                <li><strong>銀行轉帳：</strong>支援台灣各大銀行</li>
+                                <li><strong>超商付款：</strong>7-11、全家、萊爾富</li>
+                                <li><strong>虛擬貨幣：</strong>Bitcoin、Ethereum（部分商品）</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>什麼情況下可以申請退款？</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>以下情況可申請退款：</p>
+                            <ul>
+                                <li>賣家未在承諾時間內交付帳號</li>
+                                <li>收到的帳號與商品描述不符</li>
+                                <li>帳號無法正常使用或登入</li>
+                                <li>帳號被原持有人找回</li>
+                                <li>交易過程中發現詐騙行為</li>
+                            </ul>
+                            <p>退款申請需在交易完成後<span class="highlight">7天內</span>提出，我們會在3-5個工作天內處理。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 帳號安全 -->
+                <div class="faq-category">
+                    <h2 class="category-title">
+                        <i class="fas fa-shield-alt"></i>
+                        帳號安全
+                    </h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>購買的帳號安全嗎？</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>我們嚴格把關帳號品質：</p>
+                            <ul>
+                                <li><strong>來源驗證：</strong>確保所有帳號都是合法取得</li>
+                                <li><strong>安全檢測：</strong>檢查帳號是否有安全風險</li>
+                                <li><strong>密碼更改：</strong>建議購買後立即更改密碼</li>
+                                <li><strong>綁定信箱：</strong>更新為您的專用信箱</li>
+                                <li><strong>雙重驗證：</strong>啟用2FA增強安全性</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>如果帳號被盜或被找回怎麼辦？</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>遇到這種情況請立即：</p>
+                            <ul>
+                                <li><strong>聯絡客服：</strong>第一時間通知我們的客服團隊</li>
+                                <li><strong>提供證據：</strong>截圖或其他相關證明</li>
+                                <li><strong>協助處理：</strong>我們會協助您與賣家溝通</li>
+                                <li><strong>退款保障：</strong>如無法解決將依政策退款</li>
+                            </ul>
+                            <p>我們提供<span class="highlight">30天</span>的帳號安全保障期。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 技術支援 -->
+                <div class="faq-category">
+                    <h2 class="category-title">
+                        <i class="fas fa-headset"></i>
+                        技術支援
+                    </h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>如何聯絡客服？</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                    <p>我們提供多種聯絡方式：</p>
+                    <ul>
+                        <li><strong>線上客服：</strong>網站右下角的即時聊天功能</li>
+                        <li><strong>電子郵件：</strong>zhengyou507@gmail.com</li>
+                        <li><strong>客服專線：</strong>+886-903-361-787</li>
+                        <li><strong>Instagram：</strong>@chenyou.shop</li>
+                        <li><strong>Discord：</strong>CY.SHOP官方群組</li>
+                    </ul>
+                    <p>客服時間：週一至週日 09:00-21:00</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>網站使用上有問題怎麼辦？</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>請先嘗試以下解決方法：</p>
+                            <ul>
+                                <li>清除瀏覽器快取和Cookie</li>
+                                <li>更新瀏覽器至最新版本</li>
+                                <li>嘗試使用其他瀏覽器</li>
+                                <li>檢查網路連線狀況</li>
+                                <li>暫時停用瀏覽器擴充功能</li>
+                            </ul>
+                            <p>如問題持續存在，請聯絡我們的技術支援團隊。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 聯絡客服 CTA -->
+                <div class="contact-cta">
+                    <h3><i class="fas fa-comments"></i> 還有其他問題？</h3>
+                    <p>如果您在常見問題中沒有找到答案，我們的專業客服團隊隨時為您服務</p>
+                    <a href="contact.html" class="btn btn-primary">
+                        <i class="fas fa-headset"></i> 聯絡客服
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <span class="logo-text">CY</span>
+                        <span class="logo-dot">.</span>
+                        <span class="logo-shop">SHOP</span>
+                    </div>
+                    <p>專業可靠的數位帳號交易平台，提供安全、快速的交易體驗。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        
+                        <a href="https://www.instagram.com/chenyou.shop?igsh=MThkd29jbXc3bDg2OQ%3D%3D&utm_source=qr" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                        <a href="https://discord.gg/SZkyeKJ4wp" target="_blank" rel="noopener"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>產品類別</h4>
+                    <ul>
+                        <li><a href="category.html?cat=gaming">遊戲帳號</a></li>
+                        <li><a href="category.html?cat=social">社交平台</a></li>
+                        <li><a href="category.html?cat=streaming">直播平台</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>客戶服務</h4>
+                    <ul>
+                        <li><a href="faq.html">常見問題</a></li>
+                        <li><a href="contact.html">聯絡我們</a></li>
+                        <li><a href="refund-policy.html">退款政策</a></li>
+                        <li><a href="terms.html">使用條款</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>聯絡資訊</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> zhengyou507@gmail.com</p>
+                        <p><i class="fas fa-phone"></i> +886-903-361-787</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CY.SHOP. 版權所有.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ 展開/收合功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const faqItem = this.parentElement;
+                    const answer = faqItem.querySelector('.faq-answer');
+                    const icon = this.querySelector('.faq-icon');
+                    
+                    // 關閉其他已開啟的項目
+                    faqQuestions.forEach(otherQuestion => {
+                        if (otherQuestion !== this) {
+                            const otherItem = otherQuestion.parentElement;
+                            const otherAnswer = otherItem.querySelector('.faq-answer');
+                            otherQuestion.classList.remove('active');
+                            otherAnswer.classList.remove('active');
+                        }
+                    });
+                    
+                    // 切換當前項目
+                    this.classList.toggle('active');
+                    answer.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

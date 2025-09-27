@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理員面板 - CY.SHOP</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="admin-body">
+    <!-- Admin Content Container - Hidden by default -->
+    <div id="admin-content-container" class="admin-content-container" style="display: none;">
+    
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="admin-nav">
+            <div class="admin-logo">
+                <h2><i class="fas fa-shield-alt"></i> CY.SHOP 管理中心</h2>
+            </div>
+            <div class="admin-user">
+                <span id="admin-username">管理員</span>
+                <button class="btn-danger" onclick="adminLogout()">登出</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar">
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>儀表板</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#products" class="nav-link" data-section="products">
+                        <i class="fas fa-box"></i>
+                        <span>商品管理</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#orders" class="nav-link" data-section="orders">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>訂單管理</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#users" class="nav-link" data-section="users">
+                        <i class="fas fa-users"></i>
+                        <span>用戶管理</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#analytics" class="nav-link" data-section="analytics">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>數據分析</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#settings" class="nav-link" data-section="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>系統設定</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Dashboard Section -->
+        <section id="dashboard-section" class="admin-section active">
+            <div class="section-header">
+                <h2>儀表板</h2>
+                <p>總覽系統狀態和重要數據</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="total-products">0</h3>
+                        <p>總商品數</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="total-orders">0</h3>
+                        <p>總訂單數</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="total-users">0</h3>
+                        <p>註冊用戶</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="total-revenue">$0</h3>
+                        <p>總收入</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-charts">
+                <div class="chart-container">
+                    <h3>近期訂單趨勢</h3>
+                    <div id="orders-chart" class="chart-placeholder">
+                        <p>圖表載入中...</p>
+                    </div>
+                </div>
+                <div class="recent-activities">
+                    <h3>最近活動</h3>
+                    <div id="recent-activities-list">
+                        <!-- 動態載入 -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Management Section -->
+        <section id="products-section" class="admin-section">
+            <div class="section-header">
+                <h2>商品管理</h2>
+                <button class="btn-primary" onclick="openAddProductModal()">
+                    <i class="fas fa-plus"></i> 新增商品
+                </button>
+            </div>
+
+            <div class="products-filters">
+                <div class="filter-group">
+                    <label>分類：</label>
+                    <select id="category-filter">
+                        <option value="">全部分類</option>
+                        <option value="gaming">遊戲帳號</option>
+                        <option value="social">社交平台</option>
+                        <option value="streaming">直播平台</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>狀態：</label>
+                    <select id="status-filter">
+                        <option value="">全部狀態</option>
+                        <option value="active">啟用</option>
+                        <option value="inactive">停用</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>搜尋：</label>
+                    <input type="text" id="product-search" placeholder="搜尋商品名稱...">
+                </div>
+                <button class="btn-secondary" onclick="filterProducts()">
+                    <i class="fas fa-search"></i> 搜尋
+                </button>
+            </div>
+
+            <div class="products-table-container">
+                <table class="admin-table" id="products-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>商品名稱</th>
+                            <th>分類</th>
+                            <th>價格</th>
+                            <th>庫存</th>
+                            <th>狀態</th>
+                            <th>建立日期</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-tbody">
+                        <!-- 動態載入 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination" id="products-pagination">
+                <!-- 動態載入 -->
+            </div>
+        </section>
+
+        <!-- Orders Management Section -->
+        <section id="orders-section" class="admin-section">
+            <div class="section-header">
+                <h2>訂單管理</h2>
+                <button class="btn-secondary" onclick="exportOrders()">
+                    <i class="fas fa-download"></i> 匯出訂單
+                </button>
+            </div>
+
+            <div class="orders-filters">
+                <div class="filter-group">
+                    <label>狀態：</label>
+                    <select id="order-status-filter">
+                        <option value="">全部狀態</option>
+                        <option value="pending">待處理</option>
+                        <option value="processing">處理中</option>
+                        <option value="completed">已完成</option>
+                        <option value="cancelled">已取消</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>日期範圍：</label>
+                    <input type="date" id="order-date-from">
+                    <span>至</span>
+                    <input type="date" id="order-date-to">
+                </div>
+                <div class="filter-group">
+                    <label>搜尋：</label>
+                    <input type="text" id="order-search" placeholder="訂單編號或用戶email...">
+                </div>
+                <button class="btn-secondary" onclick="filterOrders()">
+                    <i class="fas fa-search"></i> 搜尋
+                </button>
+            </div>
+
+            <div class="orders-table-container">
+                <table class="admin-table" id="orders-table">
+                    <thead>
+                        <tr>
+                            <th>訂單編號</th>
+                            <th>用戶</th>
+                            <th>商品</th>
+                            <th>金額</th>
+                            <th>狀態</th>
+                            <th>付款方式</th>
+                            <th>訂單日期</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-tbody">
+                        <!-- 動態載入 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination" id="orders-pagination">
+                <!-- 動態載入 -->
+            </div>
+        </section>
+
+        <!-- Users Management Section -->
+        <section id="users-section" class="admin-section">
+            <div class="section-header">
+                <h2>用戶管理</h2>
+                <button class="btn-secondary" onclick="exportUsers()">
+                    <i class="fas fa-download"></i> 匯出用戶
+                </button>
+            </div>
+
+            <div class="users-table-container">
+                <table class="admin-table" id="users-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>用戶名</th>
+                            <th>電子郵件</th>
+                            <th>註冊日期</th>
+                            <th>最後登入</th>
+                            <th>狀態</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-tbody">
+                        <!-- 動態載入 -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics-section" class="admin-section">
+            <div class="section-header">
+                <h2>數據分析</h2>
+            </div>
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <h3>銷售趨勢</h3>
+                    <div id="sales-chart" class="chart-placeholder">
+                        <p>圖表載入中...</p>
+                    </div>
+                </div>
+                <div class="analytics-card">
+                    <h3>商品分類分佈</h3>
+                    <div id="category-chart" class="chart-placeholder">
+                        <p>圖表載入中...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings-section" class="admin-section">
+            <div class="section-header">
+                <h2>系統設定</h2>
+            </div>
+            <div class="settings-form">
+                <div class="form-group">
+                    <label>網站名稱：</label>
+                    <input type="text" id="site-name" value="CY.SHOP">
+                </div>
+                <div class="form-group">
+                    <label>網站描述：</label>
+                    <textarea id="site-description">專業的數位帳號交易平台</textarea>
+                </div>
+                <div class="form-group">
+                    <label>聯絡郵箱：</label>
+                    <input type="email" id="contact-email" value="zhengyou507@gmail.com">
+                </div>
+                <button class="btn-primary" onclick="saveSettings()">儲存設定</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Add Product Modal -->
+    <div id="add-product-modal" class="modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3 id="product-modal-title">新增商品</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="product-form" class="admin-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-name">商品名稱 *</label>
+                            <input type="text" id="product-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-category">分類 *</label>
+                            <select id="product-category" name="category" required>
+                                <option value="">選擇分類</option>
+                                <option value="game-accounts">遊戲帳號</option>
+                                <option value="social-platforms">社交平台</option>
+                                <option value="professional-services">專業服務</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-price">價格 *</label>
+                            <input type="number" id="product-price" name="price" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-original-price">原價</label>
+                            <input type="number" id="product-original-price" name="originalPrice" min="0" step="0.01">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-stock">庫存數量 *</label>
+                            <input type="number" id="product-stock" name="stock" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-status">狀態 *</label>
+                            <select id="product-status" name="status" required>
+                                <option value="active">啟用</option>
+                                <option value="inactive">停用</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-description">商品描述</label>
+                        <textarea id="product-description" name="description" rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-image">商品圖片 URL</label>
+                        <input type="url" id="product-image" name="image">
+                    </div>
+                    <div class="form-group">
+                        <label for="product-tags">標籤 (用逗號分隔)</label>
+                        <input type="text" id="product-tags" name="tags" placeholder="熱門, 推薦, 新品">
+                    </div>
+                    
+                    <!-- 將提交按鈕移到表單內部 -->
+                    <div class="form-actions" style="margin-top: 30px; text-align: right;">
+                        <button type="button" class="btn-secondary" onclick="closeProductModal()" style="margin-right: 10px;">取消</button>
+                        <button type="submit" class="btn-primary">
+                            <span id="product-submit-text">新增商品</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="border-top: none; padding-top: 0;">
+                <!-- 按鈕已移到表單內部 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Detail Modal -->
+    <div id="order-detail-modal" class="modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3>訂單詳情</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="order-detail-content">
+                <!-- 動態載入 -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeModal(document.getElementById('order-detail-modal'))">關閉</button>
+                <button type="button" class="btn-primary" onclick="updateOrderStatus()">更新狀態</button>
+            </div>
+        </div>
+    </div>
+    
+    </div> <!-- End of admin-content-container -->
+
+    <!-- Admin Login Modal -->
+    <div id="admin-login-modal" class="modal active">
+        <div class="modal-content admin-login-content">
+            <div class="admin-login-header">
+                <div class="admin-logo">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2>管理員登入</h2>
+                <p>CY.SHOP 管理後台</p>
+            </div>
+            <div class="admin-login-body">
+                <form id="admin-login-form" class="admin-login-form">
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-user input-icon"></i>
+                            <input type="text" id="admin-username-input" name="username" placeholder="請輸入管理員帳號" required>
+                            <label for="admin-username-input">管理員帳號</label>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="admin-password-input" name="password" placeholder="請輸入密碼" required>
+                            <label for="admin-password-input">密碼</label>
+                            <button type="button" class="password-toggle-btn" onclick="toggleAdminPassword()">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="login-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="admin-remember">
+                            <span class="checkmark"></span>
+                            記住登入狀態
+                        </label>
+                    </div>
+                    <button type="submit" class="admin-login-btn">
+                        <span class="btn-text">登入管理後台</span>
+                        <span class="btn-loading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            驗證中...
+                        </span>
+                    </button>
+                </form>
+                <div class="admin-login-footer">
+                    <p><i class="fas fa-info-circle"></i> 請使用管理員帳號登入</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="api-config.js"></script>
+    <script src="script.js"></script>
+    <script src="admin-script.js"></script>
+</body>
+</html>
