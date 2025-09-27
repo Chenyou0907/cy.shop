@@ -1,10 +1,10 @@
 // API 配置文件
 const ApiConfig = {
     // API 基礎設定
-    baseURL: 'https://your-api-domain.com/api', // 替換為您的實際 API URL
+    baseURL: 'https://chenyou0907.github.io/cy.shop/acc.shop/api', // 基於您的域名的 API URL
     
     // 是否使用真實 API (false = 使用模擬數據)
-    useRealAPI: false,
+    useRealAPI: true, // 設為 true 時將使用真實 API
     
     // API 端點配置
     endpoints: {
@@ -48,6 +48,19 @@ const ApiConfig = {
     retry: {
         attempts: 3,
         delay: 1000 // 毫秒
+    },
+    
+    // 快速切換函數
+    switchToRealAPI() {
+        this.useRealAPI = true;
+        console.log('✅ 已切換到真實 API 模式');
+        console.log('🔗 API URL:', this.baseURL);
+    },
+    
+    switchToMockAPI() {
+        this.useRealAPI = false;
+        console.log('✅ 已切換到模擬 API 模式');
+        console.log('🎭 使用本地模擬數據');
     }
 };
 

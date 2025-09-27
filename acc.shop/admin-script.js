@@ -3,8 +3,8 @@ class AdminAPI {
     constructor() {
         // 使用統一的 API 配置
         this.config = window.ApiConfig || {
-            baseURL: 'https://your-api-domain.com/api',
-            useRealAPI: false,
+            baseURL: 'https://chenyou0907.github.io/cy.shop/acc.shop/api',
+            useRealAPI: true, // 預設使用模擬 API
             endpoints: {},
             defaultHeaders: {
                 'Content-Type': 'application/json',
@@ -144,30 +144,49 @@ class AdminAPI {
 
     // Products API
     async getProducts(page = 1, limit = 10, filters = {}) {
-        return await this.mockApiCall('/admin/products', {
-            method: 'GET',
-            params: { page, limit, ...filters }
-        });
+        return this.config.useRealAPI 
+            ? await this.apiCall('/admin/products', {
+                method: 'GET',
+                params: { page, limit, ...filters }
+            })
+            : await this.mockApiCall('/admin/products', {
+                method: 'GET',
+                params: { page, limit, ...filters }
+            });
     }
 
     async createProduct(productData) {
-        return await this.mockApiCall('/admin/products', {
-            method: 'POST',
-            body: productData
-        });
+        return this.config.useRealAPI 
+            ? await this.apiCall('/admin/products', {
+                method: 'POST',
+                body: productData
+            })
+            : await this.mockApiCall('/admin/products', {
+                method: 'POST',
+                body: productData
+            });
     }
 
     async updateProduct(id, productData) {
-        return await this.mockApiCall(`/admin/products/${id}`, {
-            method: 'PUT',
-            body: productData
-        });
+        return this.config.useRealAPI 
+            ? await this.apiCall(`/admin/products/${id}`, {
+                method: 'PUT',
+                body: productData
+            })
+            : await this.mockApiCall(`/admin/products/${id}`, {
+                method: 'PUT',
+                body: productData
+            });
     }
 
     async deleteProduct(id) {
-        return await this.mockApiCall(`/admin/products/${id}`, {
-            method: 'DELETE'
-        });
+        return this.config.useRealAPI 
+            ? await this.apiCall(`/admin/products/${id}`, {
+                method: 'DELETE'
+            })
+            : await this.mockApiCall(`/admin/products/${id}`, {
+                method: 'DELETE'
+            });
     }
 
     // Orders API
@@ -664,6 +683,35 @@ class AdminPanel {
         const productForm = document.getElementById('product-form');
         if (productForm) {
             productForm.addEventListener('submit', (e) => this.handleProductSubmit(e));
+            
+            // 添加實時值監聽器來追蹤商品名稱輸入
+            const nameInput = document.getElementById('product-name');
+            if (nameInput) {
+                nameInput.addEventListener('input', (e) => {
+                    console.log('📝 商品名稱輸入變化:', e.target.value);
+                    // 將值存儲在元素上作為備份
+                    nameInput._backupValue = e.target.value;
+                });
+                
+                nameInput.addEventListener('blur', (e) => {
+                    console.log('👁️ 商品名稱失去焦點:', e.target.value);
+                    nameInput._backupValue = e.target.value;
+                });
+            }
+            
+            // 添加分類選擇監聽器
+            const categorySelect = document.getElementById('product-category');
+            if (categorySelect) {
+                categorySelect.addEventListener('change', (e) => {
+                    console.log('🏷️ 商品分類選擇變化:', e.target.value);
+                    categorySelect._backupValue = e.target.value;
+                });
+                
+                categorySelect.addEventListener('blur', (e) => {
+                    console.log('👁️ 商品分類失去焦點:', e.target.value);
+                    categorySelect._backupValue = e.target.value;
+                });
+            }
         }
 
         // Modal close buttons
@@ -1053,36 +1101,120 @@ class AdminPanel {
         // 使用 FormData - 這是標準且可靠的方法
         const formData = new FormData(e.target);
         
-        // 構建產品數據對象
+        // 構建產品數據對象 - 使用多重備援讀取
+        const getFieldValue = (fieldName, inputId) => {
+            // 方法1: FormData
+            const formValue = formData.get(fieldName);
+            if (formValue && formValue.trim()) {
+                return formValue.trim();
+            }
+            
+            // 方法2: 直接從 DOM 讀取
+            const element = document.getElementById(inputId);
+            if (element && element.value && element.value.trim()) {
+                return element.value.trim();
+            }
+            
+            // 方法3: 從備份值讀取
+            if (element && element._backupValue && element._backupValue.trim()) {
+                return element._backupValue.trim();
+            }
+            
+            return '';
+        };
+        
         const productData = {
-            name: (formData.get('name') || '').trim(),
-            category: formData.get('category') || '',
-            price: parseFloat(formData.get('price')) || 0,
-            originalPrice: formData.get('originalPrice') ? parseFloat(formData.get('originalPrice')) : null,
-            stock: parseInt(formData.get('stock')) || 0,
-            status: formData.get('status') || 'active',
-            description: (formData.get('description') || '').trim(),
-            image: (formData.get('image') || '').trim(),
+            name: getFieldValue('name', 'product-name'),
+            category: (() => {
+                // 多重讀取分類值
+                let categoryValue = formData.get('category');
+                if (!categoryValue) {
+                    const categorySelect = document.getElementById('product-category');
+                    categoryValue = categorySelect?.value || categorySelect?._backupValue || '';
+                }
+                return categoryValue;
+            })(),
+            price: parseFloat(formData.get('price') || document.getElementById('product-price')?.value) || 0,
+            originalPrice: (() => {
+                const val = formData.get('originalPrice') || document.getElementById('product-original-price')?.value;
+                return val ? parseFloat(val) : null;
+            })(),
+            stock: parseInt(formData.get('stock') || document.getElementById('product-stock')?.value) || 0,
+            status: formData.get('status') || document.getElementById('product-status')?.value || 'active',
+            description: getFieldValue('description', 'product-description'),
+            image: getFieldValue('image', 'product-image'),
             tags: (() => {
-                const tagsValue = formData.get('tags') || '';
+                const tagsValue = formData.get('tags') || document.getElementById('product-tags')?.value || '';
                 return tagsValue ? tagsValue.split(',').map(tag => tag.trim()).filter(tag => tag) : [];
             })()
         };
         
-        // 調試信息
+        // 詳細調試信息
         console.log('📋 FormData 收集的數據:', productData);
         console.log('📝 所有 FormData 條目:', Object.fromEntries(formData.entries()));
         
-        // 數據驗證
+        // 額外的輸入框直接讀取調試
+        const nameInput = document.getElementById('product-name');
+        console.log('🔍 直接讀取商品名稱輸入框:', {
+            element: !!nameInput,
+            value: nameInput?.value,
+            backupValue: nameInput?._backupValue,
+            trimmedValue: nameInput?.value?.trim(),
+            length: nameInput?.value?.length,
+            backupLength: nameInput?._backupValue?.length
+        });
+        
+        // 數據驗證 - 如果讀取失敗，提供緊急手動輸入
         if (!productData.name) {
             console.error('❌ 商品名稱驗證失敗');
-            this.showNotification('請輸入商品名稱', 'error');
-            return;
+            console.error('❌ 詳細調試信息:', {
+                formDataName: formData.get('name'),
+                directInputValue: nameInput?.value,
+                productDataName: productData.name
+            });
+            
+            // 緊急手動輸入作為最後的解決方案
+            const manualName = prompt('系統無法讀取商品名稱，請手動輸入商品名稱:');
+            if (manualName && manualName.trim()) {
+                productData.name = manualName.trim();
+                console.log('✅ 使用手動輸入的商品名稱:', productData.name);
+            } else {
+                this.showNotification('請輸入商品名稱', 'error');
+                return;
+            }
         }
         
         if (!productData.category) {
-            this.showNotification('請選擇商品分類', 'error');
-            return;
+            console.error('❌ 商品分類驗證失敗');
+            const categorySelect = document.getElementById('product-category');
+            console.error('❌ 分類選擇調試信息:', {
+                formDataCategory: formData.get('category'),
+                selectValue: categorySelect?.value,
+                selectedIndex: categorySelect?.selectedIndex,
+                options: categorySelect ? Array.from(categorySelect.options).map(opt => ({ value: opt.value, text: opt.text, selected: opt.selected })) : []
+            });
+            
+            // 提供手動分類選擇
+            const manualCategory = prompt(`請手動選擇商品分類：
+1. game-accounts (遊戲帳號)
+2. social-platforms (社交平台) 
+3. professional-services (專業服務)
+            
+請輸入 1、2 或 3:`);
+            
+            const categoryMap = {
+                '1': 'game-accounts',
+                '2': 'social-platforms', 
+                '3': 'professional-services'
+            };
+            
+            if (manualCategory && categoryMap[manualCategory]) {
+                productData.category = categoryMap[manualCategory];
+                console.log('✅ 使用手動選擇的分類:', productData.category);
+            } else {
+                this.showNotification('請選擇商品分類', 'error');
+                return;
+            }
         }
         
         if (productData.price < 0) {
