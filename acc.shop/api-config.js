@@ -4,7 +4,7 @@ const ApiConfig = {
     baseURL: 'https://chenyou0907.github.io/cy.shop/acc.shop/api', // 基於您的域名的 API URL
     
     // 是否使用真實 API (false = 使用模擬數據)
-    useRealAPI: true, // 設為 true 時將使用真實 API
+    useRealAPI: false, // 設為 true 時將使用真實 API
     
     // API 端點配置
     endpoints: {

@@ -4,7 +4,7 @@ class AdminAPI {
         // 使用統一的 API 配置
         this.config = window.ApiConfig || {
             baseURL: 'https://chenyou0907.github.io/cy.shop/acc.shop/api',
-            useRealAPI: true, // 預設使用模擬 API
+            useRealAPI: false, // 預設使用模擬 API
             endpoints: {},
             defaultHeaders: {
                 'Content-Type': 'application/json',
@@ -144,15 +144,26 @@ class AdminAPI {
 
     // Products API
     async getProducts(page = 1, limit = 10, filters = {}) {
-        return this.config.useRealAPI 
-            ? await this.apiCall('/admin/products', {
-                method: 'GET',
-                params: { page, limit, ...filters }
-            })
-            : await this.mockApiCall('/admin/products', {
+        if (this.config.useRealAPI) {
+            try {
+                return await this.apiCall('/admin/products', {
+                    method: 'GET',
+                    params: { page, limit, ...filters }
+                });
+            } catch (error) {
+                console.warn('真實 API 調用失敗，自動切換到模擬模式:', error.message);
+                // 自動回退到模擬 API
+                return await this.mockApiCall('/admin/products', {
+                    method: 'GET',
+                    params: { page, limit, ...filters }
+                });
+            }
+        } else {
+            return await this.mockApiCall('/admin/products', {
                 method: 'GET',
                 params: { page, limit, ...filters }
             });
+        }
     }
 
     async createProduct(productData) {
