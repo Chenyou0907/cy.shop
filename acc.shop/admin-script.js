@@ -177,6 +177,46 @@ class AdminAPI {
         }
     }
 
+    // 為所有產品表單欄位添加實時值監聽器
+    addProductFieldListeners() {
+        console.log('🎧 添加產品表單欄位監聽器...');
+        
+        // 定義所有需要監聽的欄位
+        const fields = [
+            { id: 'product-name', name: '商品名稱', events: ['input', 'blur'] },
+            { id: 'product-category', name: '商品分類', events: ['change', 'blur'] },
+            { id: 'product-price', name: '價格', events: ['input', 'blur'] },
+            { id: 'product-original-price', name: '原價', events: ['input', 'blur'] },
+            { id: 'product-stock', name: '庫存數量', events: ['input', 'blur'] },
+            { id: 'product-status', name: '狀態', events: ['change', 'blur'] },
+            { id: 'product-description', name: '商品描述', events: ['input', 'blur'] },
+            { id: 'product-image', name: '商品圖片URL', events: ['input', 'blur'] },
+            { id: 'product-tags', name: '標籤', events: ['input', 'blur'] }
+        ];
+        
+        fields.forEach(({ id, name, events }) => {
+            const element = document.getElementById(id);
+            if (element) {
+                console.log(`✅ 找到欄位: ${name} (${id})`);
+                
+                events.forEach(eventType => {
+                    element.addEventListener(eventType, (e) => {
+                        const value = e.target.value;
+                        console.log(`📝 ${name}${eventType === 'input' ? '輸入變化' : eventType === 'change' ? '選擇變化' : '失去焦點'}:`, value);
+                        // 將值存儲在元素上作為備份
+                        element._backupValue = value;
+                    });
+                });
+                
+                // 初始化備份值
+                element._backupValue = element.value || '';
+                console.log(`🔄 ${name} 初始備份值:`, element._backupValue);
+            } else {
+                console.warn(`⚠️ 找不到欄位: ${name} (${id})`);
+            }
+        });
+    }
+
     // Products API
     async getProducts(page = 1, limit = 10, filters = {}) {
         if (this.config.useRealAPI) {
@@ -734,34 +774,8 @@ class AdminPanel {
         if (productForm) {
             productForm.addEventListener('submit', (e) => this.handleProductSubmit(e));
             
-            // 添加實時值監聽器來追蹤商品名稱輸入
-            const nameInput = document.getElementById('product-name');
-            if (nameInput) {
-                nameInput.addEventListener('input', (e) => {
-                    console.log('📝 商品名稱輸入變化:', e.target.value);
-                    // 將值存儲在元素上作為備份
-                    nameInput._backupValue = e.target.value;
-                });
-                
-                nameInput.addEventListener('blur', (e) => {
-                    console.log('👁️ 商品名稱失去焦點:', e.target.value);
-                    nameInput._backupValue = e.target.value;
-                });
-            }
-            
-            // 添加分類選擇監聽器
-            const categorySelect = document.getElementById('product-category');
-            if (categorySelect) {
-                categorySelect.addEventListener('change', (e) => {
-                    console.log('🏷️ 商品分類選擇變化:', e.target.value);
-                    categorySelect._backupValue = e.target.value;
-                });
-                
-                categorySelect.addEventListener('blur', (e) => {
-                    console.log('👁️ 商品分類失去焦點:', e.target.value);
-                    categorySelect._backupValue = e.target.value;
-                });
-            }
+            // 為所有產品表單欄位添加實時值監聽器
+            this.addProductFieldListeners();
         }
 
         // Modal close buttons
@@ -1209,26 +1223,24 @@ class AdminPanel {
         
         const productData = {
             name: getFieldValue('name', 'product-name'),
-            category: (() => {
-                // 多重讀取分類值
-                let categoryValue = formData.get('category');
-                if (!categoryValue) {
-                    const categorySelect = document.getElementById('product-category');
-                    categoryValue = categorySelect?.value || categorySelect?._backupValue || '';
-                }
-                return categoryValue;
+            category: getFieldValue('category', 'product-category'),
+            price: (() => {
+                const priceValue = getFieldValue('price', 'product-price');
+                return priceValue ? parseFloat(priceValue) : 0;
             })(),
-            price: parseFloat(formData.get('price') || document.getElementById('product-price')?.value) || 0,
             originalPrice: (() => {
-                const val = formData.get('originalPrice') || document.getElementById('product-original-price')?.value;
-                return val ? parseFloat(val) : null;
+                const originalPriceValue = getFieldValue('originalPrice', 'product-original-price');
+                return originalPriceValue ? parseFloat(originalPriceValue) : null;
             })(),
-            stock: parseInt(formData.get('stock') || document.getElementById('product-stock')?.value) || 0,
-            status: formData.get('status') || document.getElementById('product-status')?.value || 'active',
+            stock: (() => {
+                const stockValue = getFieldValue('stock', 'product-stock');
+                return stockValue ? parseInt(stockValue) : 0;
+            })(),
+            status: getFieldValue('status', 'product-status') || 'active',
             description: getFieldValue('description', 'product-description'),
             image: getFieldValue('image', 'product-image'),
             tags: (() => {
-                const tagsValue = formData.get('tags') || document.getElementById('product-tags')?.value || '';
+                const tagsValue = getFieldValue('tags', 'product-tags');
                 return tagsValue ? tagsValue.split(',').map(tag => tag.trim()).filter(tag => tag) : [];
             })()
         };
@@ -1237,15 +1249,28 @@ class AdminPanel {
         console.log('📋 FormData 收集的數據:', productData);
         console.log('📝 所有 FormData 條目:', Object.fromEntries(formData.entries()));
         
-        // 額外的輸入框直接讀取調試
-        const nameInput = document.getElementById('product-name');
-        console.log('🔍 直接讀取商品名稱輸入框:', {
-            element: !!nameInput,
-            value: nameInput?.value,
-            backupValue: nameInput?._backupValue,
-            trimmedValue: nameInput?.value?.trim(),
-            length: nameInput?.value?.length,
-            backupLength: nameInput?._backupValue?.length
+        // 詳細的所有欄位調試信息
+        console.log('🔍 所有欄位詳細調試信息:');
+        const allFields = [
+            { key: 'name', id: 'product-name', name: '商品名稱' },
+            { key: 'category', id: 'product-category', name: '商品分類' },
+            { key: 'price', id: 'product-price', name: '價格' },
+            { key: 'originalPrice', id: 'product-original-price', name: '原價' },
+            { key: 'stock', id: 'product-stock', name: '庫存數量' },
+            { key: 'status', id: 'product-status', name: '狀態' },
+            { key: 'description', id: 'product-description', name: '商品描述' },
+            { key: 'image', id: 'product-image', name: '商品圖片URL' },
+            { key: 'tags', id: 'product-tags', name: '標籤' }
+        ];
+        
+        allFields.forEach(({ key, id, name }) => {
+            const element = document.getElementById(id);
+            console.log(`🔍 ${name} (${key}):`, {
+                formData: formData.get(key === 'originalPrice' ? 'originalPrice' : key),
+                elementValue: element?.value,
+                backupValue: element?._backupValue,
+                finalValue: productData[key]
+            });
         });
         
         // 數據驗證 - 如果讀取失敗，提供緊急手動輸入
@@ -1304,6 +1329,45 @@ class AdminPanel {
         if (productData.price < 0) {
             this.showNotification('價格不能為負數', 'error');
             return;
+        }
+
+        // 額外的數值欄位驗證和備用方案
+        console.log('🔢 驗證數值欄位...');
+        
+        // 價格二次驗證
+        if (productData.price === 0 || isNaN(productData.price)) {
+            console.warn('⚠️ 價格可能有問題:', productData.price);
+            const priceElement = document.getElementById('product-price');
+            const manualPrice = prompt(`⚠️ 價格讀取可能有問題 (當前: ${productData.price})，請確認或重新輸入價格：`, priceElement?.value || '0');
+            if (manualPrice && !isNaN(parseFloat(manualPrice))) {
+                productData.price = parseFloat(manualPrice);
+                console.log('✅ 使用確認的價格:', productData.price);
+            }
+        }
+
+        // 庫存二次驗證
+        if (productData.stock === 0 && document.getElementById('product-stock')?.value) {
+            console.warn('⚠️ 庫存可能有問題:', productData.stock);
+            const stockElement = document.getElementById('product-stock');
+            const manualStock = prompt(`⚠️ 庫存讀取可能有問題 (當前: ${productData.stock})，請確認或重新輸入庫存：`, stockElement?.value || '0');
+            if (manualStock && !isNaN(parseInt(manualStock))) {
+                productData.stock = parseInt(manualStock);
+                console.log('✅ 使用確認的庫存:', productData.stock);
+            }
+        }
+
+        // 狀態驗證
+        if (!productData.status || !['active', 'inactive', 'out_of_stock'].includes(productData.status)) {
+            console.warn('⚠️ 狀態欄位可能有問題:', productData.status);
+            const statusElement = document.getElementById('product-status');
+            const manualStatus = prompt(`⚠️ 狀態讀取可能有問題 (當前: ${productData.status})，請選擇：\n1. active (啟用)\n2. inactive (停用)\n3. out_of_stock (缺貨)\n\n請輸入 1、2 或 3:`, '1');
+            const statusMap = { '1': 'active', '2': 'inactive', '3': 'out_of_stock' };
+            if (manualStatus && statusMap[manualStatus]) {
+                productData.status = statusMap[manualStatus];
+                console.log('✅ 使用確認的狀態:', productData.status);
+            } else {
+                productData.status = 'active'; // 預設值
+            }
         }
         
         if (productData.stock < 0) {
